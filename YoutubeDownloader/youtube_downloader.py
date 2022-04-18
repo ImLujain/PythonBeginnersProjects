@@ -7,28 +7,13 @@ print(""" __ __         _       _          ____                _           _
 
 
 
-def file_format():
+def file_format(video_url, video_format):
 
-    video_url = None
-    video_format = None
-    argv = sys.argv[2:]
-
-    try:
-        opts, args = getopt.getopt(argv, "u:f:", 
-                    ["video_url =",
-                    "video_format ="])
-
-    except:
-        print("Usage: Pyhton youtube_downloader.py --url --format")
-
-    for opt, arg in opts:
-        if opt in ['-u', '--url']:
-            video_url = arg
-        elif opt in ['-f', '--format']:
-            video_format = arg
 
     video_info = youtube_dl.YoutubeDL().extract_info(
     url = video_url,download=False)
+
+    print(video_info)
 
     filename = f"{video_info['title']}.mp3"
     options={
@@ -47,6 +32,19 @@ def download(options, video_info, filename):
     print("Download complete... {}".format(filename))
 
 if __name__=='__main__':
-        file_format()
+    video_url = None
+    video_format = None
+    argv = sys.argv[1:]
+    try:
+        opts, args = getopt.getopt(['-l', '--link', '-f', '--format'], 'l:f:')
+        for opt, arg in opts:
+            if opt in ['-l', '--link']:
+                video_url = arg
+            elif opt in ['-f', '--format']:
+                video_format = arg
+        file_format(video_url, video_format)
+    except:
+        print("Usage: Pyhton youtube_downloader.py --url --format")
+
 
 
