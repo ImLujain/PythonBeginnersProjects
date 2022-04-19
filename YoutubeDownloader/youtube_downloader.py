@@ -30,7 +30,7 @@ def file_format(video_url, video_format):
     with youtube_dl.YoutubeDL(options) as ydl:
         ydl.download([video_info['webpage_url']])
 
-    print("Download complete... {}".format(filename))
+    print(u"\u001b[32mDownload complete... {}".format(filename))
 
 if __name__=='__main__':
     video_url = None
